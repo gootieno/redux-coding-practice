@@ -34,7 +34,7 @@
 
 let lastId = 0;
 
-function reducer(state = [], action) {   //We need to set the state as an empty array otherwise the state will be initialized as undefined
+export default function reducer(state = [], action) {   //We need to set the state as an empty array otherwise the state will be initialized as undefined
 	if (action.type === 'bugAdded') {
 		return [
 			...state,
