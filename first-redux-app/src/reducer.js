@@ -52,6 +52,10 @@ export default function reducer(state = [], action) {
 	} else if (action.type === actions.BUG_REMOVED) {
 		// Here we need to return an array of bugs that do not include the id of the removed bug
 		return state.filter((bug) => bug.id !== action.payload.id);
+	} else if (action.type === action.BUG_RESOLVED) {
+		return state.map((bug) =>
+			bug.id !== action.payload.id ? bug : { ...bug, resolved: true }
+		);
 	}
 
 	return state;
