@@ -14,10 +14,10 @@ const unsubscribe = store.subscribe(() => {
 });
 
 // In order to add things to the store we must use the dispatch method and dispatch and action.
-store.dispatch(actions.bugAdded('Bug 1'));
-store.dispatch(actions.bugAdded('Bug 2'));
-store.dispatch(actions.bugAdded('Bug 3'));
-store.dispatch(actions.bugResolved(1));
+store.dispatch(actions.bugAdded({ description: 'Bug 1' }));
+store.dispatch(actions.bugAdded({ description: 'Bug 2' }));
+store.dispatch(actions.bugAdded({ description: 'Bug 3' }));
+store.dispatch(actions.bugResolved({ id: 1 }));
 // Our bug removed action only requires us to pass the id of the bug so it can filter a new result which resolves in sending back
 // the state of objects excluding the id associated with the bug.
 
