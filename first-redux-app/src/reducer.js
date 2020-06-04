@@ -1,3 +1,7 @@
+// Here we import everything from actionTypes.js and store it in an alias called actions which holds all the action types
+// as properties on this actions object.
+import * as actions from './actionTypes';
+
 /*Step 1 : Designing The Store. For the bug tracking application we need to decide what we want to keep
     in the store. To do that we need to design the state. We need to maintain the list of bugs for this example. For 
     this simple app we can have an array with objects which store multiple properties. 
@@ -34,8 +38,9 @@
 
 let lastId = 0;
 
-export default function reducer(state = [], action) {   //We need to set the state as an empty array otherwise the state will be initialized as undefined
-	if (action.type === 'bugAdded') {
+export default function reducer(state = [], action) {
+	//We need to set the state as an empty array otherwise the state will be initialized as undefined
+	if (action.type === actions.BUG_ADDED) {
 		return [
 			...state,
 			{
@@ -44,7 +49,7 @@ export default function reducer(state = [], action) {   //We need to set the sta
 				resolved: false,
 			},
 		];
-	} else if (action.type === 'bugRemoved') {
+	} else if (action.type === actions.BUG_REMOVED) {
 		// Here we need to return an array of bugs that do not include the id of the removed bug
 		return state.filter((bug) => bug.id !== action.payload.id);
 	}
