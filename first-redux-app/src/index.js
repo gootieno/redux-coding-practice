@@ -1,6 +1,6 @@
 import store from './store';
 import { bugAdded } from './actions';
-import { bugResolved } from './actionCreators';
+import { bugResolved } from './actions';
 
 // Store does not have a method to set the state but only to get the state. The way we can set the state is by
 // Calling and action like below. The method to do this is store.dispatch() passing in the action you would like to dispatch
