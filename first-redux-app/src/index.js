@@ -24,4 +24,4 @@ store.dispatch(actions.bugResolved({ id: 1 }));
 //Here we unsubscribe from the store because we will  be removing a bug from the UI component.
 
 // unsubscribe();
-// store.dispatch(bugRemoved(1));
+// store.dispatch(actions.bugRemoved({ id: 1 }));
