@@ -6,28 +6,32 @@ import { createSelector } from 'reselect';
 let lastId = 0;
 const slice = createSlice({
 	name: 'bugs',
-	initialState: [],
+	initialState: {
+		list: [],
+		loading: true,
+		lastFetch: null,
+	},
 	reducers: {
 		//actions => action handlers
 		bugAdded: (state, action) => {
-			state.push({
+			state.list.push({
 				id: ++lastId,
 				description: action.payload.description,
 				resolved: false,
 			});
 		},
 		bugRemoved: (state, action) => {
-			return state.filter((bug) => bug.id !== action.payload.id);
+			return state.list.filter((bug) => bug.id !== action.payload.id);
 		},
 		bugResolved: (state, action) => {
 			const index = state.findIndex((bug) => bug.id === action.payload.id);
-			state[index].resolved = true;
+			state.list[index].resolved = true;
 		},
 
 		bugAssignedToMember: (state, action) => {
 			const { bugId, memberId } = action.payload;
 			const index = state.findIndex((bug) => bug.id == bugId);
-			state[index].memberId = memberId;
+			state.list[index].memberId = memberId;
 		},
 	},
 });

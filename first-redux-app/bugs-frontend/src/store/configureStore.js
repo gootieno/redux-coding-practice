@@ -2,6 +2,7 @@ import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import reducer from './reducer';
 import logger from './middleware/logger';
 import errors from './middleware/errors';
+import api from './middleware/api';
 //create store is another example of a higher order function because it takes in a function as an argument.
 
 export default function () {
@@ -11,6 +12,7 @@ export default function () {
 			...getDefaultMiddleware(),
 			logger({ destination: 'console' }),
 			errors,
+			api,
 		],
 	});
 }
