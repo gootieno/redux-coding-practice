@@ -1,4 +1,4 @@
-# coding-with-mosh-challenges
+# bug-tracker-app
 This repo will track my coding journey to being a better developer in redux by learning how to make a bug tracking application. I will be implementing different libraries and practicing proper object oriented programming. 
 
 
