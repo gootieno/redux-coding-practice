@@ -1,6 +1,7 @@
 // Action Types
 
 import { createSlice } from '@reduxjs/toolkit';
+import { createSelector } from 'reselect';
 
 let lastId = 0;
 const slice = createSlice({
@@ -22,8 +23,31 @@ const slice = createSlice({
 			const index = state.findIndex((bug) => bug.id === action.payload.id);
 			state[index].resolved = true;
 		},
+
+		bugAssignedToMember: (state, action) => {
+			const { bugId, memberId } = action.payload;
+			const index = state.findIndex((bug) => bug.id == bugId);
+			state[index].memberId = memberId;
+		},
 	},
 });
 
-export const { bugAdded, bugResolved, bugRemoved } = slice.actions;
+// Selector unsing createSelector for memoization
+export const getUnresolvedBugs = createSelector(
+	(state) => state.entities.bugs,
+	(bugs) => bugs.filter((bug) => !bug.resolved)
+);
+
+export const getBugsByTeamMember = (memberId) =>
+	createSelector(
+		(state) => state.entities.bugs,
+		(bugs) => bugs.filter((bug) => bug.memberId === memberId)
+	);
+
+export const {
+	bugAdded,
+	bugResolved,
+	bugRemoved,
+	bugAssignedToMember,
+} = slice.actions;
 export default slice.reducer;
