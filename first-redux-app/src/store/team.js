@@ -2,17 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 
 let lastId = 0;
 const slice = createSlice({
-	name: 'projects',
+	name: 'teams',
 	initialState: [],
 	reducers: {
-		projectAdded: (state, action) => {
+		teamMemberAdded: (state, action) => {
 			state.push({
-				id: ++lastId,
-				name: action.payload.name,
+				memberId: ++lastId,
+				teamMember: action.payload.teamMember,
 			});
 		},
 	},
 });
 
-export const { projectAdded } = slice.actions;
+export const { teamMemberAdded } = slice.actions;
 export default slice.reducer;
