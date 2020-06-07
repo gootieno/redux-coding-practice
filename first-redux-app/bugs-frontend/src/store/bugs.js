@@ -8,7 +8,7 @@ const slice = createSlice({
 	name: 'bugs',
 	initialState: {
 		list: [],
-		loading: true,
+		loading: false,
 		lastFetch: null,
 	},
 	reducers: {
@@ -37,8 +37,8 @@ const slice = createSlice({
 		},
 
 		bugAssignedToUser: (state, action) => {
-			const { id: bugId, userId } = action.payload;
-			const index = state.list.findIndex((bug) => bug.id == bugId);
+			const { id, userId } = action.payload;
+			const index = state.list.findIndex((bug) => bug.id == id);
 			state.list[index].userId = userId;
 		},
 	},
@@ -53,7 +53,7 @@ export const loadBugs = () => (dispatch, getState) => {
 	const diffInMinutes = moment().diff(moment(lastFetch), 'minutes');
 	if (diffInMinutes < 10) return; //avoids making fetch calls if last call was made less than 10 min ago
 
-	dispatch(
+	return dispatch(
 		apiCallBegan({
 			url,
 			onStart: bugsRequested.type,
@@ -71,17 +71,17 @@ export const addBug = (bug) =>
 		onSuccess: bugAdded.type,
 	});
 
-export const resolveBug = (bugId) =>
+export const resolveBug = (id) =>
 	apiCallBegan({
-		url: `${url}/${bugId}`,
+		url: `${url}/${id}`,
 		method: 'patch',
 		data: { resolved: true },
 		onSuccess: bugResolved.type,
 	});
 
-export const assginBug = (bugId, userId) =>
+export const assginBug = (id, userId) =>
 	apiCallBegan({
-		url: `${url}/${bugId}`,
+		url: `${url}/${id}`,
 		method: 'patch',
 		data: { userId },
 		onSuccess: bugAssignedToUser.type,
@@ -90,13 +90,13 @@ export const assginBug = (bugId, userId) =>
 // Selector unsing createSelector for memoization
 export const getUnresolvedBugs = createSelector(
 	(state) => state.entities.bugs,
-	(bugs) => bugs.filter((bug) => !bug.resolved)
+	(bugs) => bugs.list.filter((bug) => !bug.resolved)
 );
 
 export const getBugsByTeamuser = (userId) =>
 	createSelector(
 		(state) => state.entities.bugs,
-		(bugs) => bugs.filter((bug) => bug.userId === userId)
+		(bugs) => bugs.list.filter((bug) => bug.userId === userId)
 	);
 
 const {
