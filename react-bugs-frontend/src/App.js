@@ -1,9 +1,16 @@
 import React from 'react';
+import configureStore from './store/configureStore';
+import { Provider } from 'react-redux';
+import BugsList from './component/BugsList';
+
+const store = configureStore();
 
 function App() {
-  return (
-    <h1>Hello world!</h1>
-  );
+	return (
+		<Provider store={store}>
+			<BugsList />
+		</Provider>
+	);
 }
 
 export default App;
